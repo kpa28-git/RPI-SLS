@@ -10,7 +10,7 @@ IMGDATE='20181111';
 URL='https://alpha.de.repo.voidlinux.org/live/current/';
 IMG="void-rpi$PIVER$LIBC-PLATFORMFS-$IMGDATE.tar.xz";
 
-if [ ! -f $IMG ]; then
+if [ ! -f "$IMG" ]; then
 	echo 'grab image...';
 	wget "$URL$IMG";
 fi;
