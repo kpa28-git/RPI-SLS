@@ -1,7 +1,7 @@
 #!/bin/sh
 # Installs rootfs void linux image to a drive.
 
-PIDRIVE='/dev/sda';
+PIDRIVE='/dev/sdX';
 PIPART1=$PIDRIVE'1';
 PIPART2=$PIDRIVE'2';
 PIVER=$([ -n "$1" ] && echo "$1" || echo '3');
