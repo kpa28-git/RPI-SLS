@@ -35,7 +35,7 @@ echo 'unpacking...';
 sudo tar xvfJp "$IMG" -C rootfs/ > '/dev/null' && sync;
 
 echo 'adding boot entry...';
-echo "$PIPART1 /boot vfat defaults 0 0" | sudo tee -a rootfs/etc/fstab;
+echo "/dev/mmcblk0p1 /boot vfat defaults 0 0" | sudo tee -a rootfs/etc/fstab;
 
 echo 'adding boot options...';
 echo '
