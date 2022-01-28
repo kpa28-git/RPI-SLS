@@ -11,7 +11,7 @@ PIDRIVEP2=$PIDRIVE'2';
 
 PIVER='3';
 LIBC='-musl'; # '' for glibc, '-musl' for musl
-IMGDATE='20181111'; # set this to a more recent image if you want
+IMGDATE='20210930'; # set this to a more recent image if you want
 URL='https://alpha.de.repo.voidlinux.org/live/current/';
 IMG="void-rpi$PIVER$LIBC-PLATFORMFS-$IMGDATE.tar.xz";
 if [ ! -f "$IMG" ]; then
