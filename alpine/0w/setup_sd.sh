@@ -6,26 +6,27 @@
 
 [ -z "$PI_ALPINE_0W_SD" ] && echo "'PI_ALPINE_0W_SD' must be exported to the boot media device path, exiting..." && exit 1;
 PIDRIVE=$PI_ALPINE_0W_SD;
-PIPART1=$PIDRIVE'1';
+PIDRIVEP1=$PIDRIVE'1';
 
 IMGVER='3.10';
 IMGREV='2';
 IMGTYPE='armhf';
 URL='http://dl-cdn.alpinelinux.org/alpine/';
 IMG="alpine-rpi-$IMGVER.$IMGREV-$IMGTYPE.tar.gz";
-
-echo 'grab image...';
-wget "$URL""v$IMGVER/releases/$IMGTYPE/$IMG";
+if [ ! -f "$IMG" ]; then
+	echo 'grab image...';
+	wget "$URL""v$IMGVER/releases/$IMGTYPE/$IMG";
+fi;
 
 echo 'making partitions...';
 sudo parted -s $PIDRIVE 'mktable msdos';
 sudo parted -s $PIDRIVE 'mkpart primary fat32 2048s -1';
 sudo parted -s $PIDRIVE 'toggle 1 boot';
-sudo mkfs.vfat $PIPART1;
+sudo mkfs.vfat $PIDRIVEP1;
 
 echo 'mounting...';
 sudo mkdir 'alpine';
-sudo mount $PIPART1 'alpine/';
+sudo mount $PIDRIVEP1 'alpine/';
 
 echo 'unpacking...';
 sudo tar -xzvf "$IMG" -C 'alpine/' > '/dev/null' && sync;
@@ -35,6 +36,6 @@ sudo tar -xzvf "$IMG" -C 'alpine/' > '/dev/null' && sync;
 #cp -r 'firmware-nonfree/brcm' 'alpine/firmware/brcm';
 
 echo 'cleanup...';
-sudo umount $PIPART1;
+sudo umount $PIDRIVEP1;
 sudo rm -rf alpine/;
 rm "$IMG";

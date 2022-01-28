@@ -6,8 +6,8 @@
 
 [ -z "$PI_VOID_3BPLUS_USB" ] && echo "'PI_VOID_3BPLUS_USB' must be exported to the boot media device path, exiting..." && exit 1;
 PIDRIVE=$PI_VOID_3BPLUS_USB;
-PIPART1=$PIDRIVE'1';
-PIPART2=$PIDRIVE'2';
+PIDRIVEP1=$PIDRIVE'1';
+PIDRIVEP2=$PIDRIVE'2';
 
 PIVER='3';
 LIBC='-musl'; # '' for glibc, '-musl' for musl
@@ -26,20 +26,24 @@ sudo parted -s $PIDRIVE 'toggle 1 boot';
 sudo parted -s $PIDRIVE 'mkpart primary ext4 256MB -1';
 
 echo 'making filesystem...';
-sudo mkfs.vfat $PIPART1;
-yes | sudo mkfs.ext4 -O '^has_journal' $PIPART2;
+sudo mkfs.vfat $PIDRIVEP1;
+yes | sudo mkfs.ext4 -O '^has_journal' $PIDRIVEP2;
 
 echo 'mounting...';
 sudo mkdir rootfs;
-sudo mount $PIPART2 rootfs/;
+sudo mount $PIDRIVEP2 rootfs/;
 sudo mkdir rootfs/boot;
-sudo mount $PIPART1 rootfs/boot/;
+sudo mount $PIDRIVEP1 rootfs/boot/;
 
 echo 'unpacking...';
 sudo tar xvfJp "$IMG" -C rootfs/ > '/dev/null' && sync;
 
+PIBOOT='/dev/sda';
+PIBOOTP1=$PIBOOT'1';
+PIBOOTP2=$PIBOOT'2';
+
 echo 'adding boot entry...';
-echo "$PIPART1 /boot vfat defaults 0 0" | sudo tee -a rootfs/etc/fstab;
+echo "$PIBOOTP1 /boot vfat defaults 0 0" | sudo tee -a rootfs/etc/fstab;
 
 echo 'adding boot options...';
 echo '
@@ -48,9 +52,9 @@ dtparam=audio=on
 ' | sudo tee -a rootfs/boot/config.txt;
 
 echo 'changing root partition from default...';
-sed "s|/dev/mmcblk0p2|$PIPART2|" rootfs/boot/cmdline.txt | sudo tee rootfs/boot/cmdline.txt;
+sed "s|/dev/mmcblk0p2|$PIBOOTP2|" rootfs/boot/cmdline.txt | sudo tee rootfs/boot/cmdline.txt;
 
 echo 'cleanup...';
-sudo umount $PIPART1;
-sudo umount $PIPART2;
+sudo umount $PIDRIVEP1;
+sudo umount $PIDRIVEP2;
 sudo rm -rf rootfs/;
