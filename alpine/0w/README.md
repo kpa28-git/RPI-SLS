@@ -1,3 +1,3 @@
 * Distro: [Alpine Linux](https://www.alpinelinux.org/)
-* Platform: Raspberry Pi Zero W (2017)
+* Platform: Raspberry Pi 0 W (2017)
 

@@ -1,7 +1,13 @@
 #!/bin/sh
+# Distro: Alpine Linux
+# Platform: Raspberry Pi 0 W (2017)
+# Boot Media: SD Card
 
-PIDRIVE='/dev/sda';
+
+[ -z "$PI_ALPINE_0W_SD" ] && echo "'PI_ALPINE_0W_SD' must be exported to the boot media device path, exiting..." && exit 1;
+PIDRIVE=PI_ALPINE_0W_SD;
 PIPART1=$PIDRIVE'1';
+
 IMGVER='3.10';
 IMGREV='2';
 IMGTYPE='armhf';

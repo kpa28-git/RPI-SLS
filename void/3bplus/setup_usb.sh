@@ -1,15 +1,19 @@
 #!/bin/sh
-# Installs rootfs void linux image to a drive.
+# Distro: Void Linux
+# Platform: Raspberry Pi 3BPlus
+# Boot Media: USB Drive
 
-PIDRIVE='/dev/sda';
+
+[ -z "$PI_VOID_3BPLUS_USB" ] && echo "'PI_VOID_3BPLUS_USB' must be exported to the boot media device path, exiting..." && exit 1;
+PIDRIVE=PI_VOID_3BPLUS_USB;
 PIPART1=$PIDRIVE'1';
 PIPART2=$PIDRIVE'2';
-PIVER=$([ -n "$1" ] && echo "$1" || echo '3');
+
+PIVER='3';
 LIBC='-musl'; # '' for glibc, '-musl' for musl
-IMGDATE='20181111';
+IMGDATE='20181111'; # set this to a more recent image if you want
 URL='https://alpha.de.repo.voidlinux.org/live/current/';
 IMG="void-rpi$PIVER$LIBC-PLATFORMFS-$IMGDATE.tar.xz";
-
 if [ ! -f "$IMG" ]; then
 	echo 'grab image...';
 	wget "$URL$IMG";
