@@ -5,7 +5,7 @@
 
 
 [ -z "$PI_ALPINE_0W_SD" ] && echo "'PI_ALPINE_0W_SD' must be exported to the boot media device path, exiting..." && exit 1;
-PIDRIVE=PI_ALPINE_0W_SD;
+PIDRIVE=$PI_ALPINE_0W_SD;
 PIPART1=$PIDRIVE'1';
 
 IMGVER='3.10';

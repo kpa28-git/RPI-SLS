@@ -5,7 +5,7 @@
 
 
 [ -z "$PI_VOID_3BPLUS_USB" ] && echo "'PI_VOID_3BPLUS_USB' must be exported to the boot media device path, exiting..." && exit 1;
-PIDRIVE=PI_VOID_3BPLUS_USB;
+PIDRIVE=$PI_VOID_3BPLUS_USB;
 PIPART1=$PIDRIVE'1';
 PIPART2=$PIDRIVE'2';
 
