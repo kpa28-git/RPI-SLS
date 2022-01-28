@@ -8,7 +8,7 @@ You run these at your own risk, always read before running!
 PRs welcome :)
 
 ## Usage
-1. Find your distro/platform/bootmedia: `cd \<distro\>/\<platform\>`
-2. Set the environment variable for the location of your bootable media device (`export PI_\<distro\>_\<platform\>_\<bootmedia\>=/dev/sdX`. The script will exit with error and warn you if this is unset.
+1. Find your distro/platform/bootmedia: `cd <distro>/<platform>`
+2. Set the environment variable for the location of your bootable media device (ie `export PI_<distro>_<platform>_<bootmedia>='/dev/<whatever>'`). The script will exit with error and warn you if this is unset.
 3. (Optional) Modify the script if desired - basic parameters are at the top (image url, image version, image type, etc)
 4. Run the script for the bootable media you want (`.\setup_{usb, sd}.sh`)
